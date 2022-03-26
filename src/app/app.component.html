@@ -13,17 +13,15 @@
                     <div class="row" (click)="userClick(titleName,input)">
                       <div class="col">
                         <option #titleName >{{i.title}}</option>
+                        <ng-container *ngFor="let _ of [].constructor(10); let j =index">
+                          <span [ngClass]="i.rating >j? 'fa fa-star checked' : 'fa fa-star'"></span>
+                        </ng-container>
                       </div>
-                      <div class="col">
+                      <div class="col col-lg-2">
                         <p>{{i.category}}</p>
                       </div>
-                      <div class="col">
-                        <p>{{i.rating}}</p>
-                      </div>
                     </div>
-                    <ng-container *ngFor="let _ of [].constructor(10); let j =index">
-                      <span [ngClass]="i.rating >j? 'fa fa-star checked' : 'fa fa-star'"></span>
-                    </ng-container>
+                    <br>
                   </div>
                 </section>
               </div>
