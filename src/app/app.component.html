@@ -1,0 +1,60 @@
+<section class="border p-4 mb-4 d-flex align-items-center flex-column">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-auto">
+        <div class="input-group ps-5">
+          <div id="navbar-search-autocomplete" class="form-outline">
+            <input type="search" #input class="form-control" placeholder="Enter movie name" size="70" (keyup)="onKey(input)"><br>
+            <ng-container *ngIf="searchedData.length!=0 then showBlock else noBlock"></ng-container>
+            <ng-template #showBlock>
+              <div class="border border-dark">
+                <section *ngFor="let i of searchedData" >
+                  <div class="container">
+                    <div class="row" (click)="userClick(titleName,input)">
+                      <div class="col">
+                        <option #titleName >{{i.title}}</option>
+                      </div>
+                      <div class="col">
+                        <p>{{i.category}}</p>
+                      </div>
+                      <div class="col">
+                        <p>{{i.rating}}</p>
+                      </div>
+                    </div>
+                    <ng-container *ngFor="let _ of [].constructor(10); let j =index">
+                      <span [ngClass]="i.rating >j? 'fa fa-star checked' : 'fa fa-star'"></span>
+                    </ng-container>
+                  </div>
+                </section>
+              </div>
+            </ng-template>
+            <ng-template #noBlock></ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-auto">
+        <div class="dropdown">
+          <button class="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Rating
+          </button>
+          <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+            <span class="dropdown-item" (click)="clickAnyRating()">Any rating</span>
+            <div class="dropdown-item" *ngFor="let n of [1,2,3,4,5,6,7,8,9,10]">
+              <ng-container *ngFor="let _ of [].constructor(10); let j =index">
+                <span (click)="clickRating(n)" [ngClass]="n>j? 'fa fa-star checked' : 'fa-regular fa-star'"></span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-auto">
+        <select #genre class="form-control" (change)="onChangeGenre(genre)">
+          <option disabled selected hidden>Genre</option>
+          <option>Any genre</option>
+          <option *ngFor="let c of movies" >{{c.category}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
